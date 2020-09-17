@@ -1,0 +1,45 @@
+{
+    "name": "krak/symfony-rollout-rox",
+    "description": "Symfony integration with Rollout Rox library",
+    "type": "symfony-bundle",
+    "homepage": "https://github.com/krakphp/symfony-rollout-rox",
+    "keywords": [
+        "symfony",
+        "symfony-bundle",
+        "symfony4",
+        "rollout",
+        "rox",
+        "feature-flags",
+        "cloud-bees"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "RJ Garcia",
+            "email": "ragboyjr@icloud.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Krak\\SymfonyRox\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Krak\\SymfonyRox\\Tests\\": "tests"
+        }
+    },
+    "require-dev": {
+        "nyholm/symfony-bundle-test": "^1.6",
+        "phpunit/phpunit": "^9.1",
+        "symfony/dependency-injection": "^4.4",
+        "symfony/http-kernel": "^4.4",
+        "symfony/var-dumper": "^5.1"
+    },
+    "scripts": {
+        "test": "phpunit --testdox --colors=always"
+    },
+    "require": {
+        "rollout/rox": "^4.7"
+    }
+}
