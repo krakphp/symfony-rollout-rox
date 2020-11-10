@@ -48,7 +48,7 @@ namespace App\FeatureFlags;
 use Krak\SymfonyRox\RoxContainer;
 use Rox\Server\Flags\RoxFlag;
 
-final class ProductContainer extends RoxContainer
+final class ProductContainer implements RoxContainer
 {
     public $showQtyOnPDP;
 
@@ -57,8 +57,8 @@ final class ProductContainer extends RoxContainer
     }
     
     // the namespace controls the prefix used in the rollout admin
-    // when displaying your flags or variants.
-    // by not defining this method, the default will use an empty namespace
+    // when displaying your flags or variants. Every container MUST have a unique 
+    // namespace.
     public function getNamespace(): string {
         return 'product';
     }
