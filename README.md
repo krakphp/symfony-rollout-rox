@@ -23,13 +23,15 @@ return [
 
 **Via ENV**
 
-Just setting `ROLLOUT_ROX_APP_ENV_KEY` will automatically register the configuration for you.
+Set the `ROLLOUT_ROX_APP_ENV_KEY` environment variable, and the system will pick up that key for configuration.
 
-**Via Config**
+**Via Parameter** 
+
+The app environment key is set in the symfony parameter `rollout_rox_app_env_key`. You can set that parameter directly in your app parameters config like:
 
 ```yaml
-rollout_rox:
-  app_env_key: 'key goes here'
+parameters:
+  rollout_rox_app_env_key: 'key goes here'
 ```
 
 ### Registering Containers
@@ -46,7 +48,7 @@ namespace App\FeatureFlags;
 use Krak\SymfonyRox\RoxContainer;
 use Rox\Server\Flags\RoxFlag;
 
-final class ProductContainer implements RoxContainer
+final class ProductContainer extends RoxContainer
 {
     public $showQtyOnPDP;
 
@@ -56,6 +58,7 @@ final class ProductContainer implements RoxContainer
     
     // the namespace controls the prefix used in the rollout admin
     // when displaying your flags or variants.
+    // by not defining this method, the default will use an empty namespace
     public function getNamespace(): string {
         return 'product';
     }
@@ -90,3 +93,15 @@ final class BuildPDPPrices
 ```
 
 The ContainerStore is needed to lazily initialize the Rox system. Not all requests will need to use a feature flag, so the bundle doesn't initialize until a container is accessed from the store. 
+
+### Customizing the Rox Setup
+
+**Adjusting Rox Options**
+
+If you just need to modify the RoxOptions that you would pass into Rox::setup, then you can setup a factory to build the RoxOptions, then add a service definition for those rox options, and then update the RoxSetup service definition arguments to accept the RoxOptions as the second parameter. 
+
+**Advanced Customization**
+
+If you want to have more flexibility on registration and setup, and any other hooks, it's best to just implement your own RoxSetup instance and then register your service for [RoxSetup](src/RoxSetup.php) instead of the default, or you could also use decoration as well, whatever works best for you. 
+
+You can checkout the [GlobalDefaultRoxSetup](src/GlobalDefaultRoxSetup.php) class to see the simple implementation.

@@ -31,7 +31,7 @@
     },
     "require-dev": {
         "nyholm/symfony-bundle-test": "^1.6",
-        "phpunit/phpunit": "^9.1",
+        "phpunit/phpunit": "^8.5",
         "symfony/dependency-injection": "^4.4",
         "symfony/http-kernel": "^4.4",
         "symfony/var-dumper": "^5.1"
